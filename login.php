@@ -1,44 +1,36 @@
-<?php
-	$username = "root";
-	$password = "test123";
-	$hostname = "localhost";
-	
-	$conn = new mysqli($hostname, $username, $password, "login");
-
-	// if ($conn->connect_error) {
- //    die("Connection failed: " . $conn->connect_error);
-	// } 
-	// echo "Connected successfully";
-	
-	$myusername = $_POST['user'];
-	$mypassword = $_POST['pass'];
-	$myaccount = $_POST['account'];
-	
-	$myusername = stripslashes($myusername);
-	$mypassword = stripslashes($mypassword);
-	$myaccount = stripslashes($myaccount);
-
-	$query = "SELECT * FROM users WHERE Username='$myusername' AND Password='$mypassword' AND Account='$myaccount'";
-	$result = $conn->query($query);
-	$count = mysqli_num_rows($result);
-	
-	mysqli_close($conn);
-	
-
-	if($count>=1){ 
-		// $seconds = 5 + time();
-		// setcookie(loggedin, date("F jS - g:i a"), $seconds);
-		header("location:login_success.php");
-	}else{
-		echo 'Incorrect Username or Password';
-	}
-?>
-
+<?php include('functions.php') ?>
+<!DOCTYPE html>
 <html>
-	<body>
-		<h3>Wanna go back?</h3>
-			<form action="index.php" method="POST">
-				<input type="submit" value="Back" />
-			</form>
-	</body>
+<head>
+	<title>Registration system PHP and MySQL</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+	<div class="header">
+		<h2>Login</h2>
+	</div>
+	
+	<form method="post" action="login.php">
+
+		<?php echo display_error(); ?>
+
+		<div class="input-group">
+			<label>Username</label>
+			<input type="text" name="username" >
+		</div>
+		<div class="input-group">
+			<label>Password</label>
+			<input type="password" name="password">
+		</div>
+		<div class="input-group">
+			<button type="submit" class="btn" name="login_btn">Login</button>
+		</div>
+		<p>
+			Not yet a member? <a href="register.php">Sign up</a>
+		</p>
+	</form>
+
+
+</body>
 </html>
